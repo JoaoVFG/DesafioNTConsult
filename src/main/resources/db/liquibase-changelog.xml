@@ -9,5 +9,6 @@
     <include file="Changelog/01-create-pessoa.xml" relativeToChangelogFile="true"/>
     <include file="Changelog/02-create-pauta.xml" relativeToChangelogFile="true"/>
     <include file="Changelog/03-create-voto.xml" relativeToChangelogFile="true"/>
+    <include file="Changelog/04-addforeignkey-votacao.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
