@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="03" author="JoaoVFG">
+
+        <createTable tableName="VOTO"
+                     remarks="Tabela que contem os dados de votos dos Cooperados">
+
+            <column name="ID" type="int">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+
+            <column name="PESSOA_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="PAUTA_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="VOTO" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="03.1" author="JoaoVFG">
+        <addAutoIncrement catalogName="BDVotacao"
+                          columnDataType="int" columnName="ID" incrementBy="1"
+                          schemaName="public" startWith="1" tableName="VOTO" />
+    </changeSet>
+
+</databaseChangeLog>
