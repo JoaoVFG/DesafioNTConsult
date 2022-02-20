@@ -1,6 +1,5 @@
 package JoaoVFG.com.github.DesafioNTConsult.Entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ public class Pessoa {
     @Id
     private Integer id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy' 'HH:mm:ss")
     private String nome;
 
     private String cpf;
