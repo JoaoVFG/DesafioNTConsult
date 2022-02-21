@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,6 +27,9 @@ public class DesafioNtConsultApplicationTests {
 
     @Autowired
     PessoaRepository pessoaRepository;
+
+    @Autowired
+    PautaRepository pautaRepository;
 
 
     DateParserUtil dateParserUtil = new DateParserUtil();
@@ -69,6 +73,40 @@ public class DesafioNtConsultApplicationTests {
         Date newDate = dateSum.sumMinutes(date, 60);
         assertEquals("Mon Feb 21 09:00:00 BRT 2022",newDate.toString());
 
+    }
+
+    @Test
+    public void teste05_insertPauta() {
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 1");
+        pautaRepository.save(pauta);
+
+    }
+
+    @SneakyThrows
+    @Test
+    public void teste06_insertAndSearchPauta() {
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 2");
+        pauta.setHoraInicio(dateParserUtil.conversorData("21/02/2022 08:00:00"));
+        System.out.println(pauta.toString());
+        pautaRepository.save(pauta);
+        assertEquals(pautaRepository.findById(2).get().getTema(),"TEMA DA PAUTA 2");
+    }
+
+    @SneakyThrows
+    @Test
+    public void teste07_insertSearchAndUpdatePauta() {
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 3");
+        pauta.setHoraInicio(dateParserUtil.conversorData("21/02/2022 12:00:00"));
+        pautaRepository.save(pauta);
+
+        Optional<Pauta> pautaUpdate = pautaRepository.findById(3);
+        pautaUpdate.get().setHoraEncerramento(dateSum.sumMinutes(pauta.getHoraInicio(), 90));
+        pautaRepository.save(pautaUpdate.get());
+
+        assertEquals(pautaRepository.findById(3).get().getHoraEncerramento().toString(),"2022-02-21 13:30:00.0");
     }
 
 }
