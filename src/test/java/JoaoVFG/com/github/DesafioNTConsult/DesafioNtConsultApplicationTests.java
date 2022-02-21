@@ -1,9 +1,12 @@
 package JoaoVFG.com.github.DesafioNTConsult;
 
+import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
+import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PessoaRepository;
+import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
 import lombok.SneakyThrows;
@@ -11,11 +14,13 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +35,9 @@ public class DesafioNtConsultApplicationTests {
 
     @Autowired
     PautaRepository pautaRepository;
+
+    @Autowired
+    VotoRepository votoRepository;
 
 
     DateParserUtil dateParserUtil = new DateParserUtil();
@@ -108,5 +116,54 @@ public class DesafioNtConsultApplicationTests {
 
         assertEquals(pautaRepository.findById(3).get().getHoraEncerramento().toString(),"2022-02-21 13:30:00.0");
     }
+
+    @Test
+    public void teste08_insertVotacao(){
+        Pessoa pessoa = new Pessoa(null,"TESTE VOTACAO 1","23040181068");
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 4");
+
+        pessoaRepository.save(pessoa);
+        pautaRepository.save(pauta);
+
+        Voto voto = new Voto();
+        voto.setVoto("Sim");
+        voto.setPauta(pauta);
+        voto.setPessoa(pessoa);
+
+        votoRepository.save(voto);
+
+        assertEquals(votoRepository.findById(1).get().getVoto(),"Sim");
+
+    }
+
+    @Test
+    public void teste09_countVotos(){
+        Pessoa pessoa1 = new Pessoa(null,"TESTE VOTACAO 1","96504710066");
+        Pessoa pessoa2 = new Pessoa(null,"TESTE VOTACAO 2","44525136030");
+        Pessoa pessoa3 = new Pessoa(null,"TESTE VOTACAO 3","32480358038");
+
+        pessoaRepository.save(pessoa1);
+        pessoaRepository.save(pessoa2);
+        pessoaRepository.save(pessoa3);
+
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 5");
+        pautaRepository.save(pauta);
+
+        Voto voto1 = new Voto(null, pessoa1, pauta, "Sim");
+        Voto voto2 = new Voto(null, pessoa2, pauta, "Sim");
+        Voto voto3 = new Voto(null, pessoa3, pauta, "Não");
+
+        votoRepository.save(voto1);
+        votoRepository.save(voto2);
+        votoRepository.save(voto3);
+
+        List<ResultadoVotacaoDTO> resultado = votoRepository.sumQuantidadeVotacao(5);
+        System.out.println(resultado.get(1).getVoto() + ":" + resultado.get(1).getTotalVotos());
+
+        assertEquals(resultado.get(1).getTotalVotos(), "2");
+    }
+
 
 }
