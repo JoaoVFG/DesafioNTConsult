@@ -41,6 +41,9 @@ public class DesafioNtConsultApplicationTests {
     @Autowired
     VotoRepository votoRepository;
 
+    @Autowired
+    PessoaService pessoaService;
+
 
     DateParserUtil dateParserUtil = new DateParserUtil();
     DateSum dateSum = new DateSum();
@@ -173,6 +176,23 @@ public class DesafioNtConsultApplicationTests {
         pessoaRepository.save(pessoa);
         pessoa = pessoaRepository.findByPessoaCpf("23048922059");
         assertEquals(pessoa.getNome(),"TESTE REPOSITÓRIO BUSCA POR CPF");
+    }
+
+    @Test
+    public void teste11_serviceInsertPessoa() {
+        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("25449231059","Pessoa Service Create");
+        Pessoa pessoa = pessoaService.createPessoa(createPessoaDTO);
+
+        assertEquals(pessoa.getCpf(),"25449231059");
+
+    }
+
+    @Test
+    public void teste12_serviceBuscaPessoa(){
+        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("88254199027","Pessoa Service Find");
+        Pessoa pessoa = pessoaService.createPessoa(createPessoaDTO);
+        Pessoa pessoaFind = pessoaService.findByPessoaId(9);
+        assertEquals(pessoaFind.getNome(),"Pessoa Service Find");
     }
 
 }
