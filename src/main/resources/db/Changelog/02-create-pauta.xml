@@ -19,11 +19,9 @@
             </column>
 
             <column name="HORA_INICIO" type="DATETIME">
-                <constraints nullable="false"/>
             </column>
 
             <column name="HORA_ENCERRAMENTO" type="DATETIME">
-                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
