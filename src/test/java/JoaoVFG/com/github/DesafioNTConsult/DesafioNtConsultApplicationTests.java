@@ -1,5 +1,6 @@
 package JoaoVFG.com.github.DesafioNTConsult;
 
+import JoaoVFG.com.github.DesafioNTConsult.DTO.CreatePessoaDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
@@ -7,6 +8,7 @@ import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PessoaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
+import JoaoVFG.com.github.DesafioNTConsult.Service.PessoaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
 import lombok.SneakyThrows;
@@ -44,7 +46,7 @@ public class DesafioNtConsultApplicationTests {
     DateSum dateSum = new DateSum();
 
     @Test
-    public void teste01_insertPessoa() {
+    public void teste01_repositoryInsertPessoa() {
         Pessoa pessoa = new Pessoa();
         pessoa.setCpf("45567860889");
         pessoa.setNome("Pessoa 1");
@@ -53,7 +55,7 @@ public class DesafioNtConsultApplicationTests {
     }
 
     @Test
-    public void teste02_insertAndSearchPessoa() {
+    public void teste02_repositoryInsertAndSearchPessoa() {
         Pessoa pessoa = new Pessoa();
         pessoa.setCpf("11593054807");
         pessoa.setNome("Pessoa A");
@@ -65,7 +67,7 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste03_dateConversion() {
+    public void teste03_utilDateConversion() {
         String strDate = "21/02/2022 08:00:00";
         Date date = dateParserUtil.conversorData(strDate);
 
@@ -75,7 +77,7 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste04_dateSum() {
+    public void teste04_utilDateSum() {
         String strDate = "21/02/2022 08:00:00";
         Date date = dateParserUtil.conversorData(strDate);
         Date newDate = dateSum.sumMinutes(date, 60);
@@ -84,7 +86,7 @@ public class DesafioNtConsultApplicationTests {
     }
 
     @Test
-    public void teste05_insertPauta() {
+    public void teste05_repositoryInsertPauta() {
         Pauta pauta = new Pauta();
         pauta.setTema("TEMA DA PAUTA 1");
         pautaRepository.save(pauta);
@@ -93,7 +95,7 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste06_insertAndSearchPauta() {
+    public void teste06_repositoryInsertAndSearchPauta() {
         Pauta pauta = new Pauta();
         pauta.setTema("TEMA DA PAUTA 2");
         pauta.setHoraInicio(dateParserUtil.conversorData("21/02/2022 08:00:00"));
@@ -104,7 +106,7 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste07_insertSearchAndUpdatePauta() {
+    public void teste07_RepositoryInsertSearchAndUpdatePauta() {
         Pauta pauta = new Pauta();
         pauta.setTema("TEMA DA PAUTA 3");
         pauta.setHoraInicio(dateParserUtil.conversorData("21/02/2022 12:00:00"));
@@ -118,7 +120,7 @@ public class DesafioNtConsultApplicationTests {
     }
 
     @Test
-    public void teste08_insertVotacao(){
+    public void teste08_repositoryInsertVotacao() {
         Pessoa pessoa = new Pessoa(null,"TESTE VOTACAO 1","23040181068");
         Pauta pauta = new Pauta();
         pauta.setTema("TEMA DA PAUTA 4");
@@ -138,7 +140,7 @@ public class DesafioNtConsultApplicationTests {
     }
 
     @Test
-    public void teste09_countVotos(){
+    public void teste09_repositoryCountVotos() {
         Pessoa pessoa1 = new Pessoa(null,"TESTE VOTACAO 1","96504710066");
         Pessoa pessoa2 = new Pessoa(null,"TESTE VOTACAO 2","44525136030");
         Pessoa pessoa3 = new Pessoa(null,"TESTE VOTACAO 3","32480358038");
@@ -165,5 +167,12 @@ public class DesafioNtConsultApplicationTests {
         assertEquals(resultado.get(1).getTotalVotos(), "2");
     }
 
+    @Test
+    public void teste10_repositoryFindByCpf() {
+        Pessoa pessoa = new Pessoa(null, "TESTE REPOSITÓRIO BUSCA POR CPF","23048922059");
+        pessoaRepository.save(pessoa);
+        pessoa = pessoaRepository.findByPessoaCpf("23048922059");
+        assertEquals(pessoa.getNome(),"TESTE REPOSITÓRIO BUSCA POR CPF");
+    }
 
 }

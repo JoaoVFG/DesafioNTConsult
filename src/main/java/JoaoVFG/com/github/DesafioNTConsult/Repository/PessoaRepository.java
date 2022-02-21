@@ -16,5 +16,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
     @Query("SELECT pessoa FROM Pessoa pessoa WHERE pessoa.id = :id")
     public Pessoa findByPessoaId(@Param("id") Integer id);
 
-
+    @Transactional(readOnly = true)
+    @Query("SELECT pessoa FROM Pessoa pessoa WHERE pessoa.cpf = :cpf")
+    public Pessoa findByPessoaCpf(@Param("cpf") String cpf);
 }
