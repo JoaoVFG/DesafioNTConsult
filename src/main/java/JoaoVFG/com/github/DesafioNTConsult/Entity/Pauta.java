@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,8 +24,8 @@ public class Pauta {
     private String tema;
 
     @JsonFormat(pattern = "dd/MM/yyyy' 'HH:mm:ss")
-    private String HoraInicio;
+    private Date HoraInicio;
 
     @JsonFormat(pattern = "dd/MM/yyyy' 'HH:mm:ss")
-    private String HoraEncerramento;
+    private Date HoraEncerramento;
 }
