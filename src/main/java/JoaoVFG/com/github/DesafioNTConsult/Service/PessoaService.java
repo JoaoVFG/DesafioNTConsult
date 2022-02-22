@@ -28,7 +28,7 @@ public class PessoaService {
 
     public Pessoa findByPessoaId(Integer id) {
         Optional<Pessoa> pessoa = Optional.ofNullable(pessoaRepository.findByPessoaId(id));
-        return pessoa.orElseThrow(() -> new ObjectNotFoundException("Não existe Pessoa com o ID informado"));
+        return pessoa.orElseThrow(() -> new ObjectNotFoundException("NÃO EXISTE PESSOA COM O ID INFORMADO"));
     }
 
     private Pessoa pessoaFromDTO(CreatePessoaDTO createPessoaDTO) {
