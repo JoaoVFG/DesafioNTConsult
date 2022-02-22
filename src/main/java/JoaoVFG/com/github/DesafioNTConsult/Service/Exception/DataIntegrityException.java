@@ -1,6 +1,6 @@
 package JoaoVFG.com.github.DesafioNTConsult.Service.Exception;
 
-public class DataIntegrityException extends RuntimeException{
+public class DataIntegrityException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

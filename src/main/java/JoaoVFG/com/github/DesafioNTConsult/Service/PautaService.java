@@ -91,4 +91,5 @@ public class PautaService {
             throw new DataIntegrityException("PAUTA NÃO FOI ABERTA PARA VOTAÇÃO");
         }
     }
+
 }

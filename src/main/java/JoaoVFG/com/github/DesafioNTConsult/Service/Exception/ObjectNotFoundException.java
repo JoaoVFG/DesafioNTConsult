@@ -1,6 +1,6 @@
 package JoaoVFG.com.github.DesafioNTConsult.Service.Exception;
 
-public class ObjectNotFoundException extends RuntimeException{
+public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public ObjectNotFoundException (String mensagem) {

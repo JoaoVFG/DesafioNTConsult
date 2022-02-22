@@ -32,4 +32,5 @@ public class Voto {
         this.pauta = pauta;
         this.voto = voto;
     }
+
 }

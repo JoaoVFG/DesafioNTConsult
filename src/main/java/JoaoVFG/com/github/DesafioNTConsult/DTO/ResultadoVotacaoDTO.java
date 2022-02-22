@@ -9,8 +9,13 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class ResultadoVotacaoDTO {
+
     Integer idPauta;
+
     String tema;
+
     Integer quantidadeVotosSim;
+
     Integer quantidadeVotosNao;
+
 }
