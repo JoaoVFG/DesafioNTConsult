@@ -16,7 +16,7 @@ public class DateParserUtil {
         try {
             dataConvertida = formatter.parse(dataString);
         } catch (ParseException e) {
-            throw new ParseException("Erro ao Converter a data", e.getErrorOffset());
+            throw new JoaoVFG.com.github.DesafioNTConsult.Service.Exception.ParseException("Erro ao Converter a data");
         }
         return dataConvertida;
     }
