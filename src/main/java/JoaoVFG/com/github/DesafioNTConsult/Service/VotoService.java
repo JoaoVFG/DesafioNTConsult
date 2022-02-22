@@ -1,11 +1,10 @@
 package JoaoVFG.com.github.DesafioNTConsult.Service;
 
 import JoaoVFG.com.github.DesafioNTConsult.DTO.CreateVotoDTO;
-import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
-import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.ObjectNotFoundException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class VotoService {
@@ -27,6 +27,11 @@ public class VotoService {
     PautaService pautaService;
 
     DateParserUtil dateParserUtil = new DateParserUtil();
+
+    public Voto findById (Integer idVoto) {
+        Optional<Voto> voto = Optional.ofNullable(votoRepository.findByVotoId(idVoto));
+        return voto.orElseThrow(() -> new ObjectNotFoundException("NÃO FOI ENCONTRADO UM VOTO COM ID INFORMADO"));
+    }
 
     @SneakyThrows
     public Voto createVoto(CreateVotoDTO createVotoDTO) {

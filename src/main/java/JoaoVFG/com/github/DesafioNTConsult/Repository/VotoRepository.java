@@ -17,4 +17,7 @@ public interface VotoRepository extends JpaRepository<Voto, Integer> {
 
     @Query("SELECT voto FROM Voto voto WHERE voto.pessoa.id = :idPessoa AND voto.pauta.id = :idPauta")
     Voto fidnByIdPessoaAndIdVoto(@Param("idPessoa") Integer idPessoa,@Param("idPauta") Integer idPauta);
+
+    @Query("SELECT voto FROM Voto voto WHERE voto.id = :idVoto")
+    Voto findByVotoId(@Param("idVoto") Integer idVoto);
 }
