@@ -1,9 +1,7 @@
 package JoaoVFG.com.github.DesafioNTConsult;
 
-import JoaoVFG.com.github.DesafioNTConsult.DTO.CreatePessoaDTO;
-import JoaoVFG.com.github.DesafioNTConsult.DTO.CreateVotoDTO;
-import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
-import JoaoVFG.com.github.DesafioNTConsult.DTO.StartVotacaoDTO;
+import JoaoVFG.com.github.DesafioNTConsult.DTO.*;
+import JoaoVFG.com.github.DesafioNTConsult.ENUM.StatusVoteENUM;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
@@ -29,12 +27,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -393,7 +389,16 @@ public class DesafioNtConsultApplicationTests {
     @SneakyThrows
     @Test
     public void teste24_serviceUtilcheckAbleToVote() {
-        System.out.println(checkAbleToVote.ableToVote("45567860889").toString());
-        System.out.println(checkAbleToVote.ableToVote("11593054807").toString());
+        List<StatusVoteENUM> enumListStatus = Arrays.asList(StatusVoteENUM.class.getEnumConstants());
+        StatusVoteDTO statusVoteDTO = checkAbleToVote.ableToVote("45567860889");
+        assertTrue(enumListStatus.contains(statusVoteDTO.getStatus()));
+    }
+
+    @SneakyThrows
+    @Test
+    public void teste25_serviceUtilcheckAbleToVote() {
+        List<StatusVoteENUM> enumListStatus = Arrays.asList(StatusVoteENUM.class.getEnumConstants());
+        StatusVoteDTO statusVoteDTO = checkAbleToVote.ableToVote("11593054807");
+        assertTrue(enumListStatus.contains(statusVoteDTO.getStatus()));
     }
 }
