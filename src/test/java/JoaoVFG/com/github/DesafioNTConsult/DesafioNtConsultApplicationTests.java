@@ -1,6 +1,7 @@
 package JoaoVFG.com.github.DesafioNTConsult;
 
 import JoaoVFG.com.github.DesafioNTConsult.DTO.CreatePessoaDTO;
+import JoaoVFG.com.github.DesafioNTConsult.DTO.CreateVotoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
@@ -9,10 +10,12 @@ import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PessoaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.ObjectNotFoundException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PautaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PessoaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
+import JoaoVFG.com.github.DesafioNTConsult.Service.VotoService;
 import lombok.SneakyThrows;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -50,6 +53,9 @@ public class DesafioNtConsultApplicationTests {
 
     @Autowired
     PautaService pautaService;
+
+    @Autowired
+    VotoService votoService;
 
 
     DateParserUtil dateParserUtil = new DateParserUtil();
@@ -219,6 +225,26 @@ public class DesafioNtConsultApplicationTests {
         Pauta pauta = pautaService.createPauta("TESTE INSERE E BUSCA PAUTA");
         Pauta pautaBusca = pautaService.findById(6);
         assertTrue(pautaBusca.equals(pauta));
+    }
+
+    @Test
+    public void teste15_insertVoto() {
+        CreateVotoDTO createVotoDTO = new CreateVotoDTO(6,9,"Sim");
+        Voto voto = votoService.createVoto(createVotoDTO);
+        assertEquals(voto.getVoto(),"Sim");
+    }
+
+    @Test
+    public void teste16_insertVotoWrongPessoaId() {
+        CreateVotoDTO createVotoDTO = new CreateVotoDTO(6,20,"Sim");
+        Exception exception = assertThrows(ObjectNotFoundException.class, () -> {
+            Voto voto = votoService.createVoto(createVotoDTO);
+        });
+
+        String mensagemErro = "NÃO EXISTE PESSOA COM O ID INFORMADO";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
+
     }
 
 }
