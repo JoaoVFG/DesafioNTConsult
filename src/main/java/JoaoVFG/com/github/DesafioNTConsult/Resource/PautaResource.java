@@ -1,5 +1,6 @@
 package JoaoVFG.com.github.DesafioNTConsult.Resource;
 
+import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.StartVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PautaService;
@@ -33,5 +34,11 @@ public class PautaResource {
     public ResponseEntity<Pauta> startVotacao(@RequestBody StartVotacaoDTO startVotacaoDTO) {
         Pauta pauta = pautaService.startVotacao(startVotacaoDTO);
         return ResponseEntity.ok().body(pauta);
+    }
+
+    @RequestMapping(value = "/resultadovotacao", method = RequestMethod.GET)
+    public ResponseEntity<ResultadoVotacaoDTO> resultadoVotacao(@PathVariable String idPauta) {
+        ResultadoVotacaoDTO resultadoVotacaoDTO = pautaService.resultadoVotacao(Integer.parseInt(idPauta));
+        return ResponseEntity.ok().body(resultadoVotacaoDTO);
     }
 }
