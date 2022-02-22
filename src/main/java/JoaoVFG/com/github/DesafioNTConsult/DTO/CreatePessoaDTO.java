@@ -10,8 +10,8 @@ import lombok.*;
 @ToString
 public class CreatePessoaDTO {
 
-    String cpf;
+    private String cpf;
 
-    String nome;
+    private String nome;
 
 }

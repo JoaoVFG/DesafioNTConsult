@@ -10,10 +10,10 @@ import lombok.*;
 @ToString
 public class CreateVotoDTO {
 
-    Integer idPauta;
+    private Integer idPauta;
 
-    Integer idPessoa;
+    private Integer idPessoa;
 
-    String voto;
+    private String voto;
 
 }
