@@ -14,6 +14,7 @@ import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityExcept
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.ObjectNotFoundException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PautaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PessoaService;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Util.CheckAbleToVote;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
 import JoaoVFG.com.github.DesafioNTConsult.Service.VotoService;
@@ -24,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -41,6 +43,7 @@ import static org.junit.Assert.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@PropertySource("application-test.properties")
 public class DesafioNtConsultApplicationTests {
 
     @Autowired
@@ -64,6 +67,7 @@ public class DesafioNtConsultApplicationTests {
 
     DateParserUtil dateParserUtil = new DateParserUtil();
     DateSum dateSum = new DateSum();
+    CheckAbleToVote checkAbleToVote = new CheckAbleToVote();
 
     @Test
     public void teste01_repositoryInsertPessoa() {
@@ -386,4 +390,10 @@ public class DesafioNtConsultApplicationTests {
         assertTrue(mensagemRecebida.contains(mensagemErro));
     }
 
+    @SneakyThrows
+    @Test
+    public void teste24_serviceUtilcheckAbleToVote() {
+        System.out.println(checkAbleToVote.ableToVote("45567860889").toString());
+        System.out.println(checkAbleToVote.ableToVote("11593054807").toString());
+    }
 }
