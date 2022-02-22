@@ -9,6 +9,7 @@ import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PessoaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
+import JoaoVFG.com.github.DesafioNTConsult.Service.PautaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PessoaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
@@ -46,6 +47,9 @@ public class DesafioNtConsultApplicationTests {
 
     @Autowired
     PessoaService pessoaService;
+
+    @Autowired
+    PautaService pautaService;
 
 
     DateParserUtil dateParserUtil = new DateParserUtil();
@@ -208,6 +212,13 @@ public class DesafioNtConsultApplicationTests {
         String mensagemErro = "JÁ EXISTE UMA PESSOA CADASTRADA COM ESSE CPF";
         String mensagemRecebida = exception.getMessage();
         assertTrue(mensagemRecebida.contains(mensagemErro));
+    }
+
+    @Test
+    public void teste14_insertAndFindPauta() {
+        Pauta pauta = pautaService.createPauta("TESTE INSERE E BUSCA PAUTA");
+        Pauta pautaBusca = pautaService.findById(6);
+        assertTrue(pautaBusca.equals(pauta));
     }
 
 }
