@@ -3,6 +3,7 @@ package JoaoVFG.com.github.DesafioNTConsult;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.CreatePessoaDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.CreateVotoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
+import JoaoVFG.com.github.DesafioNTConsult.DTO.StartVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
@@ -26,6 +27,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -246,5 +250,40 @@ public class DesafioNtConsultApplicationTests {
         assertTrue(mensagemRecebida.contains(mensagemErro));
 
     }
+
+    @Test
+    public void teste17_startVotacao() throws ParseException {
+        Pauta pautaInsere = pautaService.createPauta("TESTE START VOTACAO");
+        StartVotacaoDTO startVotacaoDTO = new StartVotacaoDTO(7,60);
+        Pauta pauta = pautaService.startVotacao(startVotacaoDTO);
+        Date dateEncerramento = dateSum.sumMinutes(pauta.getHoraInicio(),60);
+        assertEquals(pauta.getHoraEncerramento(),dateEncerramento);
+    }
+
+    @Test
+    public void teste18_startVotacaoWithoutTime() {
+        Pauta pautaInsere = pautaService.createPauta("TESTE START VOTACAO SEM TEMPO");
+        StartVotacaoDTO startVotacaoDTO = new StartVotacaoDTO(8,null);
+        Pauta pauta = pautaService.startVotacao(startVotacaoDTO);
+        Date dateEncerramento = dateSum.sumMinutes(pauta.getHoraInicio(),1);
+        assertEquals(pauta.getHoraEncerramento(),dateEncerramento);
+    }
+
+    @Test
+    public void teste19_startVotacaoAlreadyStarted() {
+        Pauta pautaInsere = pautaService.createPauta("TESTE START VOTACAO JA INICIADA");
+        StartVotacaoDTO startVotacaoDTO = new StartVotacaoDTO(9,null);
+        Pauta pauta = pautaService.startVotacao(startVotacaoDTO);
+        startVotacaoDTO.setTempoVotacao(5);
+
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            Pauta pautaStarted = pautaService.startVotacao(startVotacaoDTO);
+        });
+
+        String mensagemErro = "PAUTA JÁ FOI ABERTA PARA VOTAÇÃO";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
+    }
+
 
 }
