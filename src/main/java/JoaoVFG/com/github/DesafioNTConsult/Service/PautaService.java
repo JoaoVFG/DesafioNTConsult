@@ -1,8 +1,11 @@
 package JoaoVFG.com.github.DesafioNTConsult.Service;
 
+import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoConsultaDTO;
+import JoaoVFG.com.github.DesafioNTConsult.DTO.ResultadoVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.DTO.StartVotacaoDTO;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
+import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.ObjectNotFoundException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +24,9 @@ public class PautaService {
 
     @Autowired
     PautaRepository pautaRepository;
+
+    @Autowired
+    VotoRepository votoRepository;
 
     DateParserUtil dateParserUtil = new DateParserUtil();
     DateSum dateSum = new DateSum();
@@ -56,6 +63,32 @@ public class PautaService {
 
         } else {
             throw new DataIntegrityException("PAUTA JÁ FOI ABERTA PARA VOTAÇÃO");
+        }
+    }
+
+    public ResultadoVotacaoDTO resultadoVotacao(Integer idPauta) {
+        Pauta pauta = findById(idPauta);
+
+        if(pauta.getHoraInicio() != null) {
+            ResultadoVotacaoDTO resultadoVotacaoDTO = new ResultadoVotacaoDTO();
+            resultadoVotacaoDTO.setIdPauta(idPauta);
+            resultadoVotacaoDTO.setTema(pautaRepository.findByPautaId(idPauta).getTema());
+            resultadoVotacaoDTO.setQuantidadeVotosNao(0);
+            resultadoVotacaoDTO.setQuantidadeVotosSim(0);
+
+            List<ResultadoVotacaoConsultaDTO> resultadoVotacaoConsultaDTO = votoRepository.sumQuantidadeVotacao(idPauta);
+
+            for (ResultadoVotacaoConsultaDTO item : resultadoVotacaoConsultaDTO) {
+                if (item.getVoto() == "Sim") {
+                    resultadoVotacaoDTO.setQuantidadeVotosSim(item.getTotalVotos());
+                } else {
+                    resultadoVotacaoDTO.setQuantidadeVotosNao(item.getTotalVotos());
+                }
+            }
+
+            return resultadoVotacaoDTO;
+        } else {
+            throw new DataIntegrityException("PAUTA NÃO FOI ABERTA PARA VOTAÇÃO");
         }
     }
 }

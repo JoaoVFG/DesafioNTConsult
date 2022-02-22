@@ -24,12 +24,9 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
@@ -181,10 +178,10 @@ public class DesafioNtConsultApplicationTests {
         votoRepository.save(voto2);
         votoRepository.save(voto3);
 
-        List<ResultadoVotacaoDTO> resultado = votoRepository.sumQuantidadeVotacao(5);
+        List<ResultadoVotacaoConsultaDTO> resultado = votoRepository.sumQuantidadeVotacao(5);
         System.out.println(resultado.get(1).getVoto() + ":" + resultado.get(1).getTotalVotos());
 
-        assertEquals(resultado.get(1).getTotalVotos(), "2");
+        assertEquals(resultado.get(1).getTotalVotos(), 2);
     }
 
     @Test
@@ -388,7 +385,7 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste24_serviceUtilcheckAbleToVote() {
+    public void teste24_serviceUtilcheckAbleToVote1() {
         List<StatusVoteENUM> enumListStatus = Arrays.asList(StatusVoteENUM.class.getEnumConstants());
         StatusVoteDTO statusVoteDTO = checkAbleToVote.ableToVote("45567860889");
         assertTrue(enumListStatus.contains(statusVoteDTO.getStatus()));
@@ -396,9 +393,45 @@ public class DesafioNtConsultApplicationTests {
 
     @SneakyThrows
     @Test
-    public void teste25_serviceUtilcheckAbleToVote() {
+    public void teste25_serviceUtilcheckAbleToVote2() {
         List<StatusVoteENUM> enumListStatus = Arrays.asList(StatusVoteENUM.class.getEnumConstants());
         StatusVoteDTO statusVoteDTO = checkAbleToVote.ableToVote("11593054807");
         assertTrue(enumListStatus.contains(statusVoteDTO.getStatus()));
     }
+
+    @SneakyThrows
+    @Test
+    public void teste26_pautaServiceResultadoVotacao(){
+        Pessoa pessoa1 = new Pessoa(null,"TESTE VOTACAO 2 - 1","58667131016");
+        Pessoa pessoa2 = new Pessoa(null,"TESTE VOTACAO 2 - 2","93461970050");
+        Pessoa pessoa3 = new Pessoa(null,"TESTE VOTACAO 2 - 3","35849718028");
+        Pessoa pessoa4 = new Pessoa(null,"TESTE VOTACAO 2 - 4","55701873080");
+        Pessoa pessoa5 = new Pessoa(null,"TESTE VOTACAO 2 - 5","94732986099");
+
+        pessoaRepository.save(pessoa1);
+        pessoaRepository.save(pessoa2);
+        pessoaRepository.save(pessoa3);
+        pessoaRepository.save(pessoa4);
+        pessoaRepository.save(pessoa5);
+
+        Pauta pauta = new Pauta();
+        pauta.setTema("TEMA DA PAUTA 5");
+        pauta.setHoraInicio(dateParserUtil.conversorData("22/02/2022 06:00:00"));
+        pauta = pautaRepository.save(pauta);
+
+        Voto voto1 = new Voto(null, pessoa1, pauta, "Sim");
+        Voto voto2 = new Voto(null, pessoa2, pauta, "Sim");
+        Voto voto3 = new Voto(null, pessoa3, pauta, "Não");
+        Voto voto4 = new Voto(null, pessoa4, pauta, "Sim");
+        Voto voto5 = new Voto(null, pessoa5, pauta, "Não");
+        votoRepository.save(voto1);
+        votoRepository.save(voto2);
+        votoRepository.save(voto3);
+        votoRepository.save(voto4);
+        votoRepository.save(voto5);
+
+        ResultadoVotacaoDTO resultadoVotacaoDTO = pautaService.resultadoVotacao(pauta.getId());
+        assertEquals(resultadoVotacaoDTO.getQuantidadeVotosSim(),3);
+    }
+
 }
