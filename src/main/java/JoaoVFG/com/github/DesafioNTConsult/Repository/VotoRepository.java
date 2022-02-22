@@ -15,4 +15,6 @@ public interface VotoRepository extends JpaRepository<Voto, Integer> {
     @Query("SELECT voto.voto as voto, count(*) as totalVotos FROM Voto voto WHERE voto.pauta.id = :idBusca GROUP BY voto.voto")
     List<ResultadoVotacaoDTO> sumQuantidadeVotacao(@Param("idBusca") Integer id);
 
+    @Query("SELECT voto FROM Voto voto WHERE voto.pessoa.id = :idPessoa AND voto.pauta.id = :idPauta")
+    Voto fidnByIdPessoaAndIdVoto(@Param("idPessoa") Integer idPessoa,@Param("idPauta") Integer idPauta);
 }

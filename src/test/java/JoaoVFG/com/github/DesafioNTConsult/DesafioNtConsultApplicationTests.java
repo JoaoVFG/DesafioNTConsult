@@ -333,5 +333,57 @@ public class DesafioNtConsultApplicationTests {
 
     }
 
+    @SneakyThrows
+    @Test
+    public void teste22_repositoryVotoFindPessoaVotoInPauta() {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setCpf("10090862007");
+        pessoa.setNome("TESTE BUSCA VOTO PESSOA EM UMA PAUTA");
+        pessoa = pessoaRepository.save(pessoa);
+
+        Pauta pauta = new Pauta();
+        pauta.setTema("TESTE PAUTA BUSCA VOTO PESSOA EM UMA PAUTA");
+        pauta = pautaRepository.save(pauta);
+
+        Voto voto = new Voto();
+        voto.setPessoa(pessoa);
+        voto.setPauta(pauta);
+        voto.setVoto("Sim");
+        voto = votoRepository.save(voto);
+
+        Voto buscaVoto = votoRepository.fidnByIdPessoaAndIdVoto(pessoa.getId(),pauta.getId());
+        assertEquals(buscaVoto.getVoto(),"Sim");
+    }
+
+    @SneakyThrows
+    @Test
+    public void teste23_votoServiceVotoAlreadyVoted() {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setCpf("40085439029");
+        pessoa.setNome("TESTE PESSOA JA VOTOU");
+        pessoa = pessoaRepository.save(pessoa);
+
+        Pauta pauta = new Pauta();
+        pauta.setTema("TESTE PAUTA PESSOA JA VOTOU");
+        pauta.setHoraInicio(dateParserUtil.conversorData("22/02/2022 06:00:00"));
+        pauta.setHoraEncerramento(dateParserUtil.conversorData("22/02/2023 06:00:00"));
+        pauta = pautaRepository.save(pauta);
+
+        Voto voto = new Voto();
+        voto.setPessoa(pessoa);
+        voto.setPauta(pauta);
+        voto.setVoto("Sim");
+        voto = votoRepository.save(voto);
+
+        Integer idPauta = pauta.getId();
+        Integer idPessoa = pessoa.getId();
+
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            votoService.createVoto(new CreateVotoDTO(idPauta,idPessoa,"Não"));
+        });
+        String mensagemErro = "PESSOA JA VOTOU NESSA PAUTA";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
+    }
 
 }

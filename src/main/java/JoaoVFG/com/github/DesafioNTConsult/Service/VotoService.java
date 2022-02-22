@@ -37,10 +37,13 @@ public class VotoService {
         if(voto.getPauta().getHoraInicio() != null) {
             Date dataHoraVoto =dateParserUtil.conversorData(new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(new Date()));
 
-            if(dataHoraVoto.before(voto.getPauta().getHoraEncerramento())) {
-                System.out.println(voto.getPauta().getHoraEncerramento().toString());
-                voto = votoRepository.save(voto);
-                return voto;
+            if (dataHoraVoto.before(voto.getPauta().getHoraEncerramento())) {
+                if (alreadyVoted(voto.getPessoa().getId(),voto.getPauta().getId())){
+                    throw new DataIntegrityException("PESSOA JA VOTOU NESSA PAUTA");
+                } else {
+                    voto = votoRepository.save(voto);
+                    return voto;
+                }
 
             } else {
                 throw new DataIntegrityException("VOTAÇÃO PARA PAUTA ESTA ENCERRADA");
@@ -50,6 +53,16 @@ public class VotoService {
             throw new DataIntegrityException("PAUTA NÃO ESTA ABERTA PARA VOTAÇÃO");
         }
 
+    }
+
+    public Boolean alreadyVoted(Integer idPessoa, Integer idPauta) {
+
+        Voto voto = votoRepository.fidnByIdPessoaAndIdVoto(idPessoa, idPauta);
+        if(voto != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private Voto votoFromDTO(CreateVotoDTO createVotoDTO) {
