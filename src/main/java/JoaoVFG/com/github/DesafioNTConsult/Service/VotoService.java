@@ -5,8 +5,14 @@ import JoaoVFG.com.github.DesafioNTConsult.Entity.Pauta;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Pessoa;
 import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class VotoService {
@@ -20,10 +26,30 @@ public class VotoService {
     @Autowired
     PautaService pautaService;
 
+    DateParserUtil dateParserUtil = new DateParserUtil();
+
+    @SneakyThrows
     public Voto createVoto(CreateVotoDTO createVotoDTO) {
         Voto voto = votoFromDTO(createVotoDTO);
-        voto = votoRepository.save(voto);
-        return voto;
+
+        String dataHoraAtual = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(new Date());
+
+        if(voto.getPauta().getHoraInicio() != null) {
+            Date dataHoraVoto =dateParserUtil.conversorData(new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(new Date()));
+
+            if(dataHoraVoto.before(voto.getPauta().getHoraEncerramento())) {
+                System.out.println(voto.getPauta().getHoraEncerramento().toString());
+                voto = votoRepository.save(voto);
+                return voto;
+
+            } else {
+                throw new DataIntegrityException("VOTAÇÃO PARA PAUTA ESTA ENCERRADA");
+            }
+
+        } else {
+            throw new DataIntegrityException("PAUTA NÃO ESTA ABERTA PARA VOTAÇÃO");
+        }
+
     }
 
     private Voto votoFromDTO(CreateVotoDTO createVotoDTO) {

@@ -234,6 +234,7 @@ public class DesafioNtConsultApplicationTests {
     @Test
     public void teste15_insertVoto() {
         CreateVotoDTO createVotoDTO = new CreateVotoDTO(6,9,"Sim");
+        pautaService.startVotacao(new StartVotacaoDTO(6,10));
         Voto voto = votoService.createVoto(createVotoDTO);
         assertEquals(voto.getVoto(),"Sim");
     }
@@ -283,6 +284,53 @@ public class DesafioNtConsultApplicationTests {
         String mensagemErro = "PAUTA JÁ FOI ABERTA PARA VOTAÇÃO";
         String mensagemRecebida = exception.getMessage();
         assertTrue(mensagemRecebida.contains(mensagemErro));
+    }
+
+    @Test
+    public void teste20_votoServiceVotoOnClosedPauta() {
+        Pauta pauta = new Pauta();
+        pauta.setTema("TESTE PAUTA VOTACAO NÃO ABERTA");
+        pauta = pautaRepository.save(pauta);
+        Integer idPauta = pauta.getId();
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome("PESSOA 10 TESTE VOTACAO NÃO ABERTA");
+        pessoa.setCpf("74690686009");
+        pessoa = pessoaRepository.save(pessoa);
+        Integer idPessoa = pessoa.getId();
+
+
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            votoService.createVoto(new CreateVotoDTO(idPauta,idPessoa,"Sim"));
+        });
+        String mensagemErro = "PAUTA NÃO ESTA ABERTA PARA VOTAÇÃO";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
+    }
+
+    @SneakyThrows
+    @Test
+    public void teste21_votoServiceVotoOnPautaEnded() {
+        Pauta pauta = new Pauta();
+        pauta.setTema("TESTE PAUTA VOTACAO FECHADA");
+        pauta.setHoraInicio(dateParserUtil.conversorData("21/02/2022 12:00:00"));
+        pauta.setHoraEncerramento(dateParserUtil.conversorData("21/02/2022 13:00:00"));
+        pauta = pautaRepository.save(pauta);
+        Integer idPauta = pauta.getId();
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome("PESSOA 11 TESTE VOTACAO FECHADA");
+        pessoa.setCpf("98415902042");
+        pessoa = pessoaRepository.save(pessoa);
+        Integer idPessoa = pessoa.getId();
+
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            votoService.createVoto(new CreateVotoDTO(idPauta,idPessoa,"Sim"));
+        });
+        String mensagemErro = "VOTAÇÃO PARA PAUTA ESTA ENCERRADA";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
+
     }
 
 
