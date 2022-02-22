@@ -79,7 +79,7 @@ public class PautaService {
             List<ResultadoVotacaoConsultaDTO> resultadoVotacaoConsultaDTO = votoRepository.sumQuantidadeVotacao(idPauta);
 
             for (ResultadoVotacaoConsultaDTO item : resultadoVotacaoConsultaDTO) {
-                if (item.getVoto() == "Sim") {
+                if (item.getVoto().equals("Sim")) {
                     resultadoVotacaoDTO.setQuantidadeVotosSim(item.getTotalVotos());
                 } else {
                     resultadoVotacaoDTO.setQuantidadeVotosNao(item.getTotalVotos());
