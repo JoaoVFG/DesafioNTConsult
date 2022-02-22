@@ -29,7 +29,7 @@ public class PautaResource {
         return ResponseEntity.created(uri).body(pauta);
     }
 
-    @RequestMapping(value = "/iniciavotacao", method = RequestMethod.POST)
+    @RequestMapping(value = "/iniciavotacao", method = RequestMethod.PUT)
     public ResponseEntity<Pauta> startVotacao(@RequestBody StartVotacaoDTO startVotacaoDTO) {
         Pauta pauta = pautaService.startVotacao(startVotacaoDTO);
         return ResponseEntity.ok().body(pauta);
