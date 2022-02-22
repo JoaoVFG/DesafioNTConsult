@@ -8,6 +8,7 @@ import JoaoVFG.com.github.DesafioNTConsult.Entity.Voto;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PautaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.PessoaRepository;
 import JoaoVFG.com.github.DesafioNTConsult.Repository.VotoRepository;
+import JoaoVFG.com.github.DesafioNTConsult.Service.Exception.DataIntegrityException;
 import JoaoVFG.com.github.DesafioNTConsult.Service.PessoaService;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateParserUtil;
 import JoaoVFG.com.github.DesafioNTConsult.Service.Util.DateSum;
@@ -16,16 +17,18 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -180,7 +183,7 @@ public class DesafioNtConsultApplicationTests {
 
     @Test
     public void teste11_serviceInsertPessoa() {
-        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("25449231059","Pessoa Service Create");
+        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("25449231059","PESSOA SERVICE CREATE");
         Pessoa pessoa = pessoaService.createPessoa(createPessoaDTO);
 
         assertEquals(pessoa.getCpf(),"25449231059");
@@ -188,11 +191,23 @@ public class DesafioNtConsultApplicationTests {
     }
 
     @Test
-    public void teste12_serviceBuscaPessoa(){
-        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("88254199027","Pessoa Service Find");
+    public void teste12_serviceBuscaPessoa() {
+        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("88254199027","PESSOA SERVICE FIND");
         Pessoa pessoa = pessoaService.createPessoa(createPessoaDTO);
         Pessoa pessoaFind = pessoaService.findByPessoaId(9);
-        assertEquals(pessoaFind.getNome(),"Pessoa Service Find");
+        assertEquals(pessoaFind.getNome(),"PESSOA SERVICE FIND");
+    }
+
+    @Test
+    public  void teste13_serviceInsertRepeatedCpf() {
+        CreatePessoaDTO createPessoaDTO = new CreatePessoaDTO("45567860889","PESSOA REPETIDA");
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            Pessoa pessoa = pessoaService.createPessoa(createPessoaDTO);
+        });
+
+        String mensagemErro = "JÁ EXISTE UMA PESSOA CADASTRADA COM ESSE CPF";
+        String mensagemRecebida = exception.getMessage();
+        assertTrue(mensagemRecebida.contains(mensagemErro));
     }
 
 }
