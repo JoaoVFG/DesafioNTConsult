@@ -16,7 +16,7 @@ public class PessoaResource {
     @Autowired
     PessoaService pessoaService;
 
-    @RequestMapping(value = "/buscaid", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscaid/id/{idPessoa}", method = RequestMethod.GET)
     public ResponseEntity<Pessoa> findById(@PathVariable String idPessoa) {
         Pessoa pessoa = pessoaService.findByPessoaId(Integer.parseInt(idPessoa));
         return ResponseEntity.ok().body(pessoa);

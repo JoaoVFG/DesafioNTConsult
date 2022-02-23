@@ -17,7 +17,7 @@ public class PautaResource {
     @Autowired
     PautaService pautaService;
 
-    @RequestMapping(value = "/buscaid", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscaid/id/{idPauta}", method = RequestMethod.GET)
     public ResponseEntity<Pauta> findById(@PathVariable String idPauta) {
         Pauta pauta = pautaService.findById(Integer.parseInt(idPauta));
         return ResponseEntity.ok().body(pauta);
@@ -36,7 +36,7 @@ public class PautaResource {
         return ResponseEntity.ok().body(pauta);
     }
 
-    @RequestMapping(value = "/resultadovotacao", method = RequestMethod.GET)
+    @RequestMapping(value = "/resultadovotacao/id/{idPauta}", method = RequestMethod.GET)
     public ResponseEntity<ResultadoVotacaoDTO> resultadoVotacao(@PathVariable String idPauta) {
         ResultadoVotacaoDTO resultadoVotacaoDTO = pautaService.resultadoVotacao(Integer.parseInt(idPauta));
         return ResponseEntity.ok().body(resultadoVotacaoDTO);

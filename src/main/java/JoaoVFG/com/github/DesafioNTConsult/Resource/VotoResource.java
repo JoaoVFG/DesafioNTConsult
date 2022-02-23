@@ -16,7 +16,7 @@ public class VotoResource {
     @Autowired
     VotoService votoService;
 
-    @RequestMapping(value = "/buscaid", method = RequestMethod.GET)
+    @RequestMapping(value = "/buscaid/id/{idVoto}", method = RequestMethod.GET)
     public ResponseEntity<Voto> findById(@PathVariable String idVoto) {
         Voto voto = votoService.findById(Integer.parseInt(idVoto));
         return ResponseEntity.ok().body(voto);
