@@ -24,9 +24,9 @@ public class Pauta {
     private String tema;
 
     @JsonFormat(pattern = "dd/MM/yyyy' 'HH:mm:ss")
-    private Date HoraInicio;
+    private Date horaInicio;
 
     @JsonFormat(pattern = "dd/MM/yyyy' 'HH:mm:ss")
-    private Date HoraEncerramento;
+    private Date horaEncerramento;
 
 }
