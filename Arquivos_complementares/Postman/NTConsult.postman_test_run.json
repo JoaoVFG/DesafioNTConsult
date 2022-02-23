@@ -1,0 +1,701 @@
+{
+	"id": "63a547d5-e01b-1970-d8f6-783d3af64604",
+	"name": "NTConsult",
+	"allTests": [],
+	"timestamp": 1645580327150,
+	"collection_id": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "0",
+	"data": null,
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+		"name": "NTConsult",
+		"description": "",
+		"order": [
+			"1933ef76-a28e-c825-f46a-980c87e335d8",
+			"06057153-6847-224c-3ed1-7052b1609e21",
+			"7bca2d16-ec5a-5d0e-795a-b32957f59037",
+			"6a869397-caea-e9df-0a81-01bc26aad9b8",
+			"64396cd9-88d5-e009-c4e3-1f2218cb4d7a",
+			"d6122a8c-d52c-07ba-f52c-50bdd71c16c3",
+			"2adde9d9-be1f-dea3-260b-c652dfb07395",
+			"56e10b87-8236-b038-fb2d-6062c0536c21",
+			"32768c85-0ebd-f017-92c4-338884b122c1",
+			"dd8e0f80-7fab-67e3-6d32-6fa5dd92b069",
+			"ea6c1bcf-f2f0-b92e-40e3-93301e90a321"
+		],
+		"folders": [],
+		"folders_order": [],
+		"requests": [
+			{
+				"id": "06057153-6847-224c-3ed1-7052b1609e21",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/pessoa/inserepessoa",
+				"queryParams": [],
+				"preRequestScript": "",
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{ \"cpf\": \"11593054807\", \n\"nome\": \"NOME 2\"}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580237904,
+				"name": "http://localhost:8080/pessoa/inserepessoa",
+				"description": "Insere pessoa 2",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "1933ef76-a28e-c825-f46a-980c87e335d8",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/pessoa/inserepessoa",
+				"queryParams": [],
+				"preRequestScript": "",
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{ \"cpf\": \"45567860889\", \n\"nome\": \"NOME 1\"}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580054773,
+				"name": "http://localhost:8080/pessoa/inserepessoa",
+				"description": "Insere pessoa 1",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "2adde9d9-be1f-dea3-260b-c652dfb07395",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/pauta/iniciavotacao",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "PUT",
+				"data": "{\"idPauta\": 1,\n    \"tempoVotacao\": 60}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580312012,
+				"name": "http://localhost:8080/pauta/iniciavotacao",
+				"description": "Iniciando votacao pauta 1",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "32768c85-0ebd-f017-92c4-338884b122c1",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/voto/votar",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{\"idPauta\": 1,\n    \"idPessoa\": 2,\n\t\"voto\" :\"Sim\"\n}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580244004,
+				"name": "http://localhost:8080/voto/votar",
+				"description": "Voto 2",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "56e10b87-8236-b038-fb2d-6062c0536c21",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/voto/votar",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{\"idPauta\": 1,\n    \"idPessoa\": 1,\n\t\"voto\" :\"Sim\"\n}",
+				"dataMode": "raw",
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580243561,
+				"name": "http://localhost:8080/voto/votar",
+				"description": "Voto 1",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "64396cd9-88d5-e009-c4e3-1f2218cb4d7a",
+				"headers": "",
+				"headerData": [],
+				"url": "http://localhost:8081/pauta/inserepauta",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "TESTE PAUTA 1",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580241591,
+				"name": "http://localhost:8080/pauta/inserepauta",
+				"description": "Insere Pauta 1",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "6a869397-caea-e9df-0a81-01bc26aad9b8",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/pessoa/buscaid/id/1",
+				"queryParams": [],
+				"preRequestScript": "",
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "GET",
+				"data": "{ \"cpf\": \"59752788050\", \n\"nome\": \"NOME 3\"}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580291699,
+				"name": "http://localhost:8080/pessoa/buscaid/id/1",
+				"description": "Busca Pessoa ",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "7bca2d16-ec5a-5d0e-795a-b32957f59037",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/pessoa/inserepessoa",
+				"queryParams": [],
+				"preRequestScript": "",
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{ \"cpf\": \"59752788050\", \n\"nome\": \"NOME 3\"}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580239071,
+				"name": "http://localhost:8080/pessoa/inserepessoa",
+				"description": "Insere pessoa 3",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "d6122a8c-d52c-07ba-f52c-50bdd71c16c3",
+				"headers": "",
+				"headerData": [],
+				"url": "http://localhost:8081/pauta/buscaid/id/1",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "GET",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580296025,
+				"name": "http://localhost:8080/pauta/buscaid/id/1",
+				"description": "Busca Pauta",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "dd8e0f80-7fab-67e3-6d32-6fa5dd92b069",
+				"headers": "Content-Type: application/json\n",
+				"headerData": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"enabled": true
+					}
+				],
+				"url": "http://localhost:8081/voto/votar",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "POST",
+				"data": "{\"idPauta\": 1,\n    \"idPessoa\": 3,\n\t\"voto\" :\"Não\"\n}",
+				"dataMode": "raw",
+				"version": 2,
+				"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580244456,
+				"name": "http://localhost:8080/voto/votar",
+				"description": "Voto 3",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			},
+			{
+				"id": "ea6c1bcf-f2f0-b92e-40e3-93301e90a321",
+				"headers": "",
+				"headerData": [],
+				"url": "http://localhost:8081/pauta/resultadovotacao/id/1",
+				"queryParams": [],
+				"preRequestScript": null,
+				"pathVariables": {},
+				"pathVariableData": [],
+				"method": "GET",
+				"data": null,
+				"dataMode": "params",
+				"version": 2,
+				"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+				"currentHelper": "normal",
+				"helperAttributes": {},
+				"time": 1645580305882,
+				"name": "http://localhost:8080/pauta/resultadovotacao/id/1",
+				"description": "",
+				"collectionId": "3ec0781a-57ac-5ef4-88f3-e93289b8884b",
+				"responses": []
+			}
+		],
+		"timestamp": 1645576198341,
+		"synced": false,
+		"syncedFilename": "",
+		"remote_id": 0,
+		"remoteLink": "",
+		"remoteLinkUpdatedAt": null,
+		"public": false,
+		"owner": "1298832",
+		"subscribed": false,
+		"createdAt": 1645576198341,
+		"updatedAt": 1645578891755,
+		"write": true,
+		"published": false,
+		"favorite": true,
+		"permissions": {},
+		"syncedPermissions": {},
+		"sharedWithTeam": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"id": "1933ef76-a28e-c825-f46a-980c87e335d8",
+			"name": "http://localhost:8080/pessoa/inserepessoa",
+			"url": "http://localhost:8081/pessoa/inserepessoa",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				153
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 153,
+			"totalRequestTime": 153,
+			"iterationResults": {}
+		},
+		{
+			"id": "06057153-6847-224c-3ed1-7052b1609e21",
+			"name": "http://localhost:8080/pessoa/inserepessoa",
+			"url": "http://localhost:8081/pessoa/inserepessoa",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 8,
+			"totalRequestTime": 8,
+			"iterationResults": {}
+		},
+		{
+			"id": "7bca2d16-ec5a-5d0e-795a-b32957f59037",
+			"name": "http://localhost:8080/pessoa/inserepessoa",
+			"url": "http://localhost:8081/pessoa/inserepessoa",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 7,
+			"totalRequestTime": 7,
+			"iterationResults": {}
+		},
+		{
+			"id": "6a869397-caea-e9df-0a81-01bc26aad9b8",
+			"name": "http://localhost:8080/pessoa/buscaid/id/1",
+			"url": "http://localhost:8081/pessoa/buscaid/id/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": 15,
+			"totalRequestTime": 15,
+			"iterationResults": {}
+		},
+		{
+			"id": "64396cd9-88d5-e009-c4e3-1f2218cb4d7a",
+			"name": "http://localhost:8080/pauta/inserepauta",
+			"url": "http://localhost:8081/pauta/inserepauta",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 11,
+			"totalRequestTime": 11,
+			"iterationResults": {}
+		},
+		{
+			"id": "d6122a8c-d52c-07ba-f52c-50bdd71c16c3",
+			"name": "http://localhost:8080/pauta/buscaid/id/1",
+			"url": "http://localhost:8081/pauta/buscaid/id/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": 8,
+			"totalRequestTime": 8,
+			"iterationResults": {}
+		},
+		{
+			"id": "2adde9d9-be1f-dea3-260b-c652dfb07395",
+			"name": "http://localhost:8080/pauta/iniciavotacao",
+			"url": "http://localhost:8081/pauta/iniciavotacao",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				21
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": 21,
+			"totalRequestTime": 21,
+			"iterationResults": {}
+		},
+		{
+			"id": "56e10b87-8236-b038-fb2d-6062c0536c21",
+			"name": "http://localhost:8080/voto/votar",
+			"url": "http://localhost:8081/voto/votar",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 15,
+			"totalRequestTime": 15,
+			"iterationResults": {}
+		},
+		{
+			"id": "32768c85-0ebd-f017-92c4-338884b122c1",
+			"name": "http://localhost:8080/voto/votar",
+			"url": "http://localhost:8081/voto/votar",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 8,
+			"totalRequestTime": 8,
+			"iterationResults": {}
+		},
+		{
+			"id": "dd8e0f80-7fab-67e3-6d32-6fa5dd92b069",
+			"name": "http://localhost:8080/voto/votar",
+			"url": "http://localhost:8081/voto/votar",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": "The request has been fulfilled and resulted in a new resource being created."
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": 7,
+			"totalRequestTime": 7,
+			"iterationResults": {}
+		},
+		{
+			"id": "ea6c1bcf-f2f0-b92e-40e3-93301e90a321",
+			"name": "http://localhost:8080/pauta/resultadovotacao/id/1",
+			"url": "http://localhost:8081/pauta/resultadovotacao/id/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": 14,
+			"totalRequestTime": 14,
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 11,
+	"totalFail": 0,
+	"totalTime": 267,
+	"lifecycle": "idle",
+	"willStop": false,
+	"synced": false
+}
